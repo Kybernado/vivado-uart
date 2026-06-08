@@ -4,11 +4,13 @@ This is an implementation of UART protocol in SystemVerilog in Vivado for Artix-
 
 ## Architecture
 
+```
 uart_top (uart_top.sv)     - board wrapper, Clock Wizard IP, reset logic wrapper
   - uart (uart.sv)     - UART logic wrapper
     - uart_tx    - transmitter with baud rate generator
     - uart_rx    - receiver with async start bit detection
-   
+```
+
 <img width="2045" height="629" alt="image" src="https://github.com/user-attachments/assets/b7c9d136-a5e0-45c3-bf92-a5be65cb25b1" />
 
 `uart` (uart.sv) acts as top level module for logic - for the UART itself, and it consists of TX and RX part, instantiated one by one. `uart_top` module is there as a bridge between the FPGA board and the UART logic - it uses a Clock Wizard IP block to route the on-board clock to the UART module, and ties the UART reset to the PLL `locked` signal so the UART stays in reset until the clock is stable.
