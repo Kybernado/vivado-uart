@@ -87,10 +87,23 @@ uart #(
 
 To flash on an FPGA board, use `uart_top.sv` as the synthesis top module in Vivado, as it includes the Clock Wizard IP for clock management. Then connect via PuTTY or TeraTerm at 115200 baud. TX and RX are independent — loopback requires an external connection, software echo, or connecting them in the top level module.
 
-## Note
+As a standalone alternative, `uart_loopback_top.sv` module can be used to be flashed on real FPGA board - it is modified version of `uart_top.sv`, so it loops back what it gets at RX line, so it can be for example tested with real terminal emulator, like `PuTTY` or `minicom`.
 
-This project has not yet been tested on real FPGA hardware.
+## Testing on real FPGA
 
-It has been verified through behavioral simulation only, and all synthesis and post-implementation data are taken from Vivado reports.
+This project has been tested on real Cmod A7-35T FPGA hardware using `minicom -D /dev/ttyUSB1 -b 115200`.
 
-Testing on Cmod A7-35T is planned once the board arrives.
+It is sending typed keys back and after each receive, LED0 blinks.
+
+Output from `minicom`:
+```
+Welcome to minicom 2.9
+
+OPTIONS: I18n 
+Port /dev/ttyUSB1, 12:53:52
+
+Press CTRL-A Z for help on special keys
+
+asdfgfasdsdg qwertyuiops
+```
+_The `asdfgfasdsdg qwertyuiops` is dummy text I typed in the terminal which got back to terminal._
